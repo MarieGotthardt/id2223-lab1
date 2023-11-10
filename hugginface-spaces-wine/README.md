@@ -1,6 +1,6 @@
 ---
 title: Wine
-emoji: 🐢
+emoji: 🍷
 colorFrom: pink
 colorTo: green
 sdk: gradio
