@@ -1,5 +1,5 @@
 import gradio as gr
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFont
 import requests
 import hopsworks
 import joblib
