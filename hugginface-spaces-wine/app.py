@@ -28,7 +28,10 @@ def wine(fixed_acidity, citric_acid, type_white, chlorides, volatile_acidity, de
     # the first element.
     #     print("Res: {0}").format(res)
     print(res)
-    return str(res[0])
+    #return str(res[0])
+    five_star_url = "https://raw.githubusercontent.com/MarieGotthardt/id2223-lab1/main/images/5_stars.png"
+    img = Image.open(requests.get(five_star_url, stream=True).raw)
+    return img
 
 demo = gr.Interface(
     fn=wine,
@@ -45,7 +48,8 @@ demo = gr.Interface(
         gr.inputs.Number(default=0.99, label="density"),
         gr.inputs.Number(default=0.06, label="chlorides"),
     ],
-    outputs="text")
+    #outputs="text")
+    outputs=gr.Image(type="pil"))
 
 demo.launch(debug=True)
 
