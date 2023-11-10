@@ -15,6 +15,28 @@ model = joblib.load(model_dir + "/wine_model.pkl")
 print("Model downloaded")
 
 
+def generate_number_image(number, img_size=(100, 100), bg_color='white', text_color='black'):
+    # Create an image with white background
+    image = Image.new('RGB', img_size, bg_color)
+
+    # Initialize the drawing context
+    draw = ImageDraw.Draw(image)
+
+    # Font settings (Default font in this case)
+    font = ImageFont.load_default()
+
+    # Calculate width and height of the text
+    text_width, text_height = draw.textsize(str(number), font)
+
+    # Calculate X, Y position of the text
+    x = (img_size[0] - text_width) / 2
+    y = (img_size[1] - text_height) / 2
+
+    # Draw the number on the image
+    draw.text((x, y), str(number), fill=text_color, font=font)
+
+    return image
+
 def wine(fixed_acidity, citric_acid, type_white, chlorides, volatile_acidity, density, alcohol):
     print("Calling function")
     #     df = pd.DataFrame([[sepal_length],[sepal_width],[petal_length],[petal_width]],
@@ -28,8 +50,7 @@ def wine(fixed_acidity, citric_acid, type_white, chlorides, volatile_acidity, de
     # the first element.
     #     print("Res: {0}").format(res)
     print(res)
-    wine_url = "https://raw.githubusercontent.com/featurestoreorg/serverless-ml-course/main/src/01-module/assets/" + \
-                 res[0] + ".png"
+    wine_url = generate_number_image(int(res))
     img = Image.open(requests.get(wine_url, stream=True).raw)
     return img
 
