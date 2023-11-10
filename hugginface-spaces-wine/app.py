@@ -40,7 +40,7 @@ demo = gr.Interface(
         gr.inputs.Number(default=7.2, label="fixed acidity"),
         gr.inputs.Number(default=0.34, label="volatile acidity"),
         gr.inputs.Number(default=0.32, label="citric acid"),
-        gr.inputs.Textbox(default="red", label="type (red, white)"),
+        gr.inputs.Number(default=0, label="type (0...red, 1...white)"),
         gr.inputs.Number(default=10.5, label="alcohol"),
         gr.inputs.Number(default=0.99, label="density"),
         gr.inputs.Number(default=0.06, label="chlorides"),
