@@ -63,6 +63,7 @@ def main():
         if column not in features_to_be_kept:
             wine_df.drop(column, axis=1, inplace=True)
 
+
     ## CLASSIFY AFTER FEATURE SELECTION ##
     X = wine_df.drop("quality", axis=1)
     y = wine_df["quality"]

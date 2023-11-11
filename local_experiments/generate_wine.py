@@ -1,5 +1,4 @@
 from imblearn.over_sampling import SMOTE
-from sklearn.datasets import load_wine
 import pandas as pd
 import numpy as np
 
@@ -33,5 +32,8 @@ X_resampled, y_resampled = smote.fit_resample(X, y)
 synthetic_df = pd.DataFrame(X_resampled, columns=df.columns[:-1])
 synthetic_df['quality'] = y_resampled
 
-# Print some of the synthetic data
-print(synthetic_df.head())
+# Look at data
+print(df.describe())
+print()
+print(synthetic_df.describe())
+
