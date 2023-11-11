@@ -1,4 +1,4 @@
-from imblearn.over_sampling import SMOTE
+import random
 import pandas as pd
 import numpy as np
 
@@ -19,21 +19,15 @@ for column in df.columns:
         df = df.drop(column, axis = 1)
         df = df.join(one_hot)
 
-X = df.drop("quality", axis=1)
-y = df["quality"]
-y = y - 3 # remap labels from 3-9 to 0-6
+rand_idx = random.randint(0, len(df) - 1)
+row = df.iloc[rand_idx].copy()
+for col in df.columns:
+    if col != 'quality' and col != 'type_red' and col != 'type_white':
+        perturbation = np.random.normal(0, 0.1 * df[col].std())
+        row[col] += perturbation
 
-smote = SMOTE(k_neighbors=4)
-
-# Fit SMOTE to your data and generate synthetic samples
-X_resampled, y_resampled = smote.fit_resample(X, y)
-
-# Create a DataFrame of the resampled data
-synthetic_df = pd.DataFrame(X_resampled, columns=df.columns[:-1])
-synthetic_df['quality'] = y_resampled
-
-# Look at data
-print(df.describe())
+print("Original wine")
+print(df.iloc[rand_idx])
 print()
-print(synthetic_df.describe())
-
+print("New wine")
+print(row)
