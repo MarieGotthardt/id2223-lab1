@@ -20,15 +20,13 @@ def generate_wine(wine_type, df):
     gmm.fit(df)
     wine_new, _ = gmm.sample(1)
 
-    synthetic_df = pd.DataFrame(wine_new, columns=df.columns)
+    # clip feature values so they do not go outside original range
+    for i, column in enumerate(df.columns):
+        min_val = df[column].min()
+        max_val = df[column].max()
+        wine_new[0, i] = np.clip(wine_new[0, i], min_val, max_val)
 
-    # change type back to the appropriate integer
-    if wine_type == 0:
-        synthetic_df['type_red'] = 1
-        synthetic_df['type_white'] = 0
-    else:
-        synthetic_df['type_red'] = 0
-        synthetic_df['type_white'] = 1
+    synthetic_df = pd.DataFrame(wine_new, columns=df.columns)
 
     # round quality to an integer
     synthetic_df['quality'] = int(round(synthetic_df['quality']))

@@ -15,6 +15,17 @@ def generate_wine(wine_type, df):
     gmm.fit(df)
     wine_new, _ = gmm.sample(1)
 
+    # clip feature values so they do not go outside original range
+    for i, column in enumerate(df.columns):
+        min_val = df[column].min()
+        max_val = df[column].max()
+        original_value = wine_new[0, i]
+
+        # Check if the value is outside the min-max range
+        if original_value < min_val or original_value > max_val:
+            print(f"Clipping value {original_value} in '{column}' to range [{min_val}, {max_val}]")
+            wine_new[0, i] = np.clip(original_value, min_val, max_val)
+
     synthetic_df = pd.DataFrame(wine_new, columns=df.columns)
 
     # change type back to the appropriate integer
