@@ -1,14 +1,9 @@
-import os
-import random
-import hopsworks
 import pandas as pd
 import numpy as np
 from sklearn import mixture
+import random
 
 def generate_wine(wine_type, df):
-    """
-    Returns a new wine as a single row in a DataFrame
-    """
     if wine_type == 0:
         df = df.loc[df['type_red'] == 1]
         print("Red wine added")
@@ -35,18 +30,28 @@ def generate_wine(wine_type, df):
 
     return synthetic_df
 
-def g():
-    project = hopsworks.login()
-    fs = project.get_feature_store()
-    wine_fg = fs.get_feature_group(name="wine",version=1)
-    query = wine_fg.select_all()
-    df = query.read()
+def main():
+    # Load an example wine dataset or replace with your own
+    df = pd.read_csv("../winequality.csv")
+
+    # Fill missing data with either random data or a category corresponding to "Unknown"
+    for column in df.columns:
+        if df[column].isna().any() and pd.api.types.is_numeric_dtype(df[column]):
+            df.loc[df[column].isna(), column] = [i for i in np.random.choice(range(round(df[column].min()), round(df[column]. max())), df[column].isna().sum())]
+        elif df[column].isna().any() and (pd.api.types.is_object_dtype(df[column]) or pd.api.types.is_categorical_dtype(df[column])):
+            df[column].fillna("Unknown")
+
+    # One-hot encode wine type
+    for column in df.columns:
+        if pd.api.types.is_categorical_dtype(df[column]) or pd.api.types.is_object_dtype(df[column]):
+            one_hot = pd.get_dummies(df[column], prefix=column)
+            df = df.drop(column, axis = 1)
+            df = df.join(one_hot)
 
     wine_type = random.choice([0, 1])
-
     synthetic_df = generate_wine(wine_type, df)
+    print(synthetic_df)
 
-    wine_fg.insert(synthetic_df)
 
 if __name__ == "__main__":
-   g()
+    main()
