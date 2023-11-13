@@ -39,7 +39,8 @@ def wine(fixed_acidity, volatile_acidity, citric_acid, residual_sugar, chlorides
 demo = gr.Interface(
     fn=wine,
     title="Wine Quality Predictive Analytics",
-    description="Experiment with fixed_acidity, citric_acid, type, chlorides, volatile_acidity, density, alcohol"
+    description="Experiment with fixed_acidity, volatile_acidity, citric_acid, residual_sugar, chlorides, "
+                "free_sulfur_dioxide, density, pH, sulphates, alcohol, type_red"
                 "to predict of which quality the wine is.",
     allow_flagging="never",
     inputs=[
