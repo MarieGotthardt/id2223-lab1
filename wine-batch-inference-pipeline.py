@@ -43,7 +43,7 @@ def g():
     df = wine_fg.read()
     # print(df)
     label = df.iloc[-offset]["quality"]
-    label_url = "https://raw.githubusercontent.com/featurestoreorg/serverless-ml-course/main/src/01-module/assets/" + label + ".png"
+    label_url = "https://raw.githubusercontent.com/SamuelHarner/review-images/main/images/" + label + "_stars.png"
     print("Actual quality: " + label)
     img = Image.open(requests.get(label_url, stream=True).raw)
     img.save("./actual_quality.png")
