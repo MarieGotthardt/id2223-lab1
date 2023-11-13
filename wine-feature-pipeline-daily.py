@@ -13,7 +13,7 @@ def generate_wine(wine_type, df):
         df = df.loc[df['type_red'] == 1]
         print("Red wine added")
     else:
-        df = df.loc[df['type_white'] == 1]
+        df = df.loc[df['type_red'] == 0]
         print("White wine added")
     
     gmm = mixture.GaussianMixture(n_components=8, covariance_type='full', random_state=0) # n_components chosen based on experiments performed
