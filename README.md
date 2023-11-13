@@ -13,11 +13,11 @@ filled missing data. In case of numerical features, we therefore randomly genera
 within the range of the values of the respective features. For missing values of categorical data, 
 on the other hand, we replaced missing data by a category corresponding to "Unknown". 
 Afterwards, we checked the dataset for duplicated records and removed those. Then we transformed the 
-categorical feature *type* into a numerical feature by using one-hot-encoding.
+categorical feature *type* into a numerical feature by using one-hot-encoding. Furthermore, we re-categorized 
+the target variable into categories from 0 to 5. (maybe elaborate on that)
 After having the data prepared this way, we investigated the predictive power of the different features. 
-Therefore, we performed a examined the correlations within the features and dropped features that were
-highly correlated 
-
+Therefore, we performed the correlations within the features and dropped features that were
+highly (>0.7) correlated with at least one other feature.
 
 
 ### Model Selection and Fine-Tuning
@@ -25,13 +25,12 @@ highly correlated
 ### Data Sampling
 
 
-
 ## Getting Started
 
 ### Dependencies
 
 * Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-* ex. Windows 10
+
 
 ### Installing
 
