@@ -32,7 +32,7 @@ def generate_wine(wine_type, df):
     synthetic_df['quality'] = int(round(synthetic_df['quality']))
 
     # cast type_red to an integer
-    synthetic_df["type_red"] = int(synthetic_df["type_red"])
+    synthetic_df["type_red"] = synthetic_df["type_red"].astype("int32")
 
     return synthetic_df
 
