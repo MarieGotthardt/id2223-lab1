@@ -22,7 +22,7 @@ def g():
     model_dir = model.download()
     model = joblib.load(model_dir + "/wine_model.pkl")
 
-    feature_view = fs.get_feature_view(name="wine", version=1)
+    feature_view = fs.get_feature_view(name="wine_enriched", version=1)
     batch_data = feature_view.get_batch_data()
 
     # Make predictions
@@ -39,7 +39,7 @@ def g():
     dataset_api = project.get_dataset_api()
     dataset_api.upload("./latest_iris.png", "Resources/images", overwrite=True)
 
-    wine_fg = fs.get_feature_group(name="wine", version=1)
+    wine_fg = fs.get_feature_group(name="wine_enriched", version=1)
     df = wine_fg.read()
     # print(df)
     label = df.iloc[-offset]["quality"]
@@ -81,8 +81,8 @@ def g():
     if predictions.value_counts().count() >= 2:
         results = confusion_matrix(labels, predictions)
 
-        true_labels = [f'True {int(i)}' for i in range(3, 10)]
-        pred_labels = [f'Pred {int(i)}' for i in range(3, 10)]
+        true_labels = [f'True {int(i)}' for i in range(0, 5)]
+        pred_labels = [f'Pred {int(i)}' for i in range(0, 5)]
         df_cm = pd.DataFrame(results, true_labels, pred_labels)
         cm = sns.heatmap(df_cm, annot=True, fmt='g')
         fig = cm.get_figure()
