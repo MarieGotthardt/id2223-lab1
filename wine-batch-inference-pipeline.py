@@ -29,10 +29,13 @@ def g():
     y_pred = model.predict(batch_data)
     # print(y_pred)
 
-    # Get the latest flower
-    offset = 1
-    quality = y_pred[y_pred.size - offset]
-    print("Predicted quality: " + quality)
+    # Get the latest wine quality
+    offset = 2
+    quality = y_pred[y_pred.size-offset]
+    print("Predicted quality: " + str(quality))
+    quality_url = "https://raw.githubusercontent.com/SamuelHarner/review-images/main/images/" + str(int(quality+1)) + "_stars.png"
+    img = Image.open(requests.get(quality_url, stream=True).raw)            
+    img.save("./latest_wine.png")
     dataset_api = project.get_dataset_api()
     dataset_api.upload("./latest_wine.png", "Resources/images", overwrite=True)
 
@@ -40,8 +43,8 @@ def g():
     df = wine_fg.read()
     # print(df)
     label = df.iloc[-offset]["quality"]
-    label_url = "https://raw.githubusercontent.com/SamuelHarner/review-images/main/images/" + label + "_stars.png"
-    print("Actual quality: " + label)
+    print("Actual quality: " + str(label))
+    label_url = "https://raw.githubusercontent.com/SamuelHarner/review-images/main/images/" + str(int(label+1)) + "_stars.png"
     img = Image.open(requests.get(label_url, stream=True).raw)
     img.save("./actual_wine.png")
     dataset_api.upload("./actual_wine.png", "Resources/images", overwrite=True)
@@ -93,5 +96,3 @@ def g():
 
 if __name__ == "__main__":
     g()
-
-
