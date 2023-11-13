@@ -76,9 +76,9 @@ def g():
     predictions = history_df[['prediction']]
     labels = history_df[['label']]
 
-    # Only create the confusion matrix when our quality_predictions feature group has examples of at least 2 qualities
+    # Only create the confusion matrix when our quality_predictions feature group has examples of at least 5 qualities
     print("Number of different quality predictions to date: " + str(predictions.value_counts().count()))
-    if predictions.value_counts().count() >= 2:
+    if predictions.value_counts().count() >= 5:
         results = confusion_matrix(labels, predictions)
 
         true_labels = [f'True {int(i)}' for i in range(0, 5)]
@@ -90,9 +90,11 @@ def g():
         fig.savefig("./confusion_matrix_wine.png")
         dataset_api.upload("./confusion_matrix_wine.png", "Resources/images", overwrite=True)
     else:
-        print("You need at least 2 different wine quality predictions to create the confusion matrix.")
-        print("Run the batch inference pipeline more times until you get at least 2 different wine quality predictions")
+        print("You need at least 5 different wine quality predictions to create the confusion matrix.")
+        print("Run the batch inference pipeline more times until you get at least 5 different wine quality predictions")
 
 
 if __name__ == "__main__":
     g()
+
+
