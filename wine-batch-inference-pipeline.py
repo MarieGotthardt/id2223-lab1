@@ -18,7 +18,7 @@ def g():
     fs = project.get_feature_store()
 
     mr = project.get_model_registry()
-    model = mr.get_model("wine_model", version=1)
+    model = mr.get_model("wine_model", version=6)
     model_dir = model.download()
     model = joblib.load(model_dir + "/wine_model.pkl")
 
@@ -32,12 +32,9 @@ def g():
     # Get the latest flower
     offset = 1
     quality = y_pred[y_pred.size - offset]
-    #flower_url = "https://raw.githubusercontent.com/featurestoreorg/serverless-ml-course/main/src/01-module/assets/" + flower + ".png"
     print("Predicted quality: " + quality)
-    #img = Image.open(requests.get(flower_url, stream=True).raw)
-    #img.save("./latest_quality.png")
     dataset_api = project.get_dataset_api()
-    dataset_api.upload("./latest_iris.png", "Resources/images", overwrite=True)
+    dataset_api.upload("./latest_wine.png", "Resources/images", overwrite=True)
 
     wine_fg = fs.get_feature_group(name="wine_enriched", version=1)
     df = wine_fg.read()

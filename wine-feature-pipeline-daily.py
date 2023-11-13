@@ -31,6 +31,9 @@ def generate_wine(wine_type, df):
     # round quality to an integer
     synthetic_df['quality'] = int(round(synthetic_df['quality']))
 
+    # cast type_red to an integer
+    synthetic_df["type_red"] = int(synthetic_df["type_red"])
+
     return synthetic_df
 
 def g():
