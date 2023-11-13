@@ -18,7 +18,7 @@ def g():
     fs = project.get_feature_store()
 
     mr = project.get_model_registry()
-    model = mr.get_model("wine_model", version=6)
+    model = mr.get_model("wine_model", version=2)
     model_dir = model.download()
     model = joblib.load(model_dir + "/wine_model.pkl")
 
@@ -29,10 +29,13 @@ def g():
     y_pred = model.predict(batch_data)
     # print(y_pred)
 
-    # Get the latest flower
+    # Get the latest wine quality
     offset = 1
-    quality = y_pred[y_pred.size - offset]
-    print("Predicted quality: " + quality)
+    quality = y_pred[y_pred.size-offset]
+    print("Predicted quality: " + str(quality))
+    quality_url = "https://raw.githubusercontent.com/SamuelHarner/review-images/main/images/" + str(int(quality+1)) + "_stars.png"
+    img = Image.open(requests.get(quality_url, stream=True).raw)            
+    img.save("./latest_wine.png")
     dataset_api = project.get_dataset_api()
     dataset_api.upload("./latest_wine.png", "Resources/images", overwrite=True)
 
@@ -40,8 +43,8 @@ def g():
     df = wine_fg.read()
     # print(df)
     label = df.iloc[-offset]["quality"]
-    label_url = "https://raw.githubusercontent.com/SamuelHarner/review-images/main/images/" + label + "_stars.png"
-    print("Actual quality: " + label)
+    print("Actual quality: " + str(label))
+    label_url = "https://raw.githubusercontent.com/SamuelHarner/review-images/main/images/" + str(int(label+1)) + "_stars.png"
     img = Image.open(requests.get(label_url, stream=True).raw)
     img.save("./actual_wine.png")
     dataset_api.upload("./actual_wine.png", "Resources/images", overwrite=True)
@@ -73,9 +76,9 @@ def g():
     predictions = history_df[['prediction']]
     labels = history_df[['label']]
 
-    # Only create the confusion matrix when our quality_predictions feature group has examples of at least 2 qualities
+    # Only create the confusion matrix when our quality_predictions feature group has examples of at least 5 qualities
     print("Number of different quality predictions to date: " + str(predictions.value_counts().count()))
-    if predictions.value_counts().count() >= 2:
+    if predictions.value_counts().count() >= 5:
         results = confusion_matrix(labels, predictions)
 
         true_labels = [f'True {int(i)}' for i in range(0, 5)]
@@ -87,8 +90,8 @@ def g():
         fig.savefig("./confusion_matrix_wine.png")
         dataset_api.upload("./confusion_matrix_wine.png", "Resources/images", overwrite=True)
     else:
-        print("You need at least 2 different wine quality predictions to create the confusion matrix.")
-        print("Run the batch inference pipeline more times until you get at least 2 different wine quality predictions")
+        print("You need at least 5 different wine quality predictions to create the confusion matrix.")
+        print("Run the batch inference pipeline more times until you get at least 5 different wine quality predictions")
 
 
 if __name__ == "__main__":
