@@ -15,11 +15,14 @@ model = joblib.load(model_dir + "/wine_model.pkl")
 print("Model downloaded")
 
 
-def wine(fixed_acidity, citric_acid, type_white, chlorides, volatile_acidity, density, alcohol):
+def wine(fixed_acidity, volatile_acidity, citric_acid, residual_sugar, chlorides,
+                         free_sulfur_dioxide, density, pH, sulphates, alcohol, type_red):
     print("Calling function")
     #     df = pd.DataFrame([[sepal_length],[sepal_width],[petal_length],[petal_width]],
-    df = pd.DataFrame([[fixed_acidity, citric_acid, type_white, chlorides, volatile_acidity, density, alcohol]],
-                      columns=['fixed_acidity', 'citric_acid', 'type_white', 'chlorides', 'volatile_acidity', 'density', 'alcohol'])
+    df = pd.DataFrame([[fixed_acidity, volatile_acidity, citric_acid, residual_sugar, chlorides,
+                         free_sulfur_dioxide, density, pH, sulphates, alcohol, type_red]],
+                      columns=['fixed_acidity', 'volatile_acidity', 'citric_acid', 'residual_sugar', 'chlorides',
+                               'free_sulfur_dioxide', 'density', 'pH', 'sulphates', 'alcohol', 'type_red'])
     print("Predicting")
     print(df)
     # 'res' is a list of predictions returned as the label.
