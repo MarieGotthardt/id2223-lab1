@@ -22,7 +22,7 @@ def g():
     model_dir = model.download()
     model = joblib.load(model_dir + "/wine_model.pkl")
 
-    feature_view = fs.get_feature_view(name="wine_enriched", version=1)
+    feature_view = fs.get_feature_view(name="wine_enriched_balanced", version=1)
     batch_data = feature_view.get_batch_data()
 
     # Make predictions
@@ -39,7 +39,7 @@ def g():
     dataset_api = project.get_dataset_api()
     dataset_api.upload("./latest_wine.png", "Resources/images", overwrite=True)
 
-    wine_fg = fs.get_feature_group(name="wine_enriched", version=1)
+    wine_fg = fs.get_feature_group(name="wine_enriched_balanced", version=1)
     df = wine_fg.read()
     # print(df)
     label = df.iloc[-offset]["quality"]
