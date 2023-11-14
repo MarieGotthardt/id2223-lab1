@@ -1,8 +1,8 @@
 ---
 title: Wine Monitoring
-emoji: 💻
+emoji: 🍷
 colorFrom: blue
-colorTo: pink
+colorTo: red
 sdk: gradio
 sdk_version: 3.8.2
 app_file: app.py
