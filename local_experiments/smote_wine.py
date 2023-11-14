@@ -66,7 +66,7 @@ def main():
     
     ## CLASSIFY WITHOUT SMOTE ##
     print()
-    print("Accuracy before smote:")
+    print("Accuracy before SMOTE:")
     run_clf(X_train, X_test, y_train, y_test)
 
     ## SMOTE ##
@@ -81,10 +81,32 @@ def main():
     print("Accuracy when trained on SMOTE data:")
     run_clf(X_resampled, X_test, y_resampled, y_test)
 
-    ## CLASSIFY WITH SMOTE AND RESTORED LABEL DISTRIBUTION ##
+    ## CLASSIFY WITH SMOTE AND ADJUSTED LABEL DISTRIBUTION ##
+    wine_df = pd.DataFrame(X_resampled, columns=wine_df.columns)
+    wine_df['quality'] = y_resampled
+
+    wine_df = drop_samples(wine_df, class_label=0, num_samples_to_drop=2000)
+    wine_df = drop_samples(wine_df, class_label=4, num_samples_to_drop=2000)
+    wine_df = drop_samples(wine_df, class_label=1, num_samples_to_drop=1000)
+
+    # prepare data for training
+    X_adjusted = wine_df.drop("quality", axis=1)
+    y_adjusted = wine_df["quality"]
+
+    print("Accuracy when trained on adjusted SMOTE data:")
+    run_clf(X_adjusted, X_test, y_adjusted, y_test)
 
 
-
+# Define a function to randomly drop samples from a specified class
+def drop_samples(dataframe, class_label, num_samples_to_drop):
+    # Filter the class
+    class_df = dataframe[dataframe['quality'] == class_label]
+    
+    # Randomly select samples to drop
+    drop_indices = np.random.choice(class_df.index, num_samples_to_drop, replace=False)
+    
+    # Drop the samples
+    return dataframe.drop(drop_indices)
 
 ## RUN CLASSIFIERS
 def run_clf(X_train, X_test, y_train, y_test):
