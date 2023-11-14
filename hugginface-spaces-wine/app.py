@@ -9,20 +9,20 @@ project = hopsworks.login()
 fs = project.get_feature_store()
 
 mr = project.get_model_registry()
-model = mr.get_model("wine_model", version=1)
+model = mr.get_model("wine_model", version=2)
 model_dir = model.download()
 model = joblib.load(model_dir + "/wine_model.pkl")
 print("Model downloaded")
 
 
 def wine(fixed_acidity, volatile_acidity, citric_acid, residual_sugar, chlorides,
-                         free_sulfur_dioxide, density, pH, sulphates, alcohol, type_red):
+                         free_sulfur_dioxide, density, ph, sulphates, alcohol, type_red):
     print("Calling function")
     #     df = pd.DataFrame([[sepal_length],[sepal_width],[petal_length],[petal_width]],
     df = pd.DataFrame([[fixed_acidity, volatile_acidity, citric_acid, residual_sugar, chlorides,
-                         free_sulfur_dioxide, density, pH, sulphates, alcohol, type_red]],
+                         free_sulfur_dioxide, density, ph, sulphates, alcohol, type_red]],
                       columns=['fixed_acidity', 'volatile_acidity', 'citric_acid', 'residual_sugar', 'chlorides',
-                               'free_sulfur_dioxide', 'density', 'pH', 'sulphates', 'alcohol', 'type_red'])
+                               'free_sulfur_dioxide', 'density', 'ph', 'sulphates', 'alcohol', 'type_red'])
     print("Predicting")
     print(df)
     # 'res' is a list of predictions returned as the label.
@@ -39,8 +39,7 @@ def wine(fixed_acidity, volatile_acidity, citric_acid, residual_sugar, chlorides
 demo = gr.Interface(
     fn=wine,
     title="Wine Quality Predictive Analytics",
-    description="Experiment with fixed_acidity, volatile_acidity, citric_acid, residual_sugar, chlorides, "
-                "free_sulfur_dioxide, density, pH, sulphates, alcohol, type_red"
+    description="Experiment with fixed_acidity, citric_acid, type, chlorides, volatile_acidity, density, alcohol"
                 "to predict of which quality the wine is.",
     allow_flagging="never",
     inputs=[
