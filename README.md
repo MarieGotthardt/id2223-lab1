@@ -36,7 +36,7 @@ highly (>0.7) correlated with at least one other feature.
 
 
 ### Data Sampling
-For sampling a new synthetic wine, red or white is chosen randomly with equal probility as the wine type. A Gaussian Mixture Model (GMM) is then fit to the data for the chosen wine type, and a single sample is then taken from the GMM and put in a dataframe. The quality label is included in the GMM but is then rounded and cast to an int to fit the quality label classes.
+For sampling a new synthetic wine, red or white is chosen randomly with equal probability as the wine type. A Gaussian Mixture Model (GMM) is then fit to the data for the chosen wine type, and a single sample is then taken from the GMM and put in a dataframe. The quality label is included in the GMM but is then rounded and cast to an int to fit the quality label classes.
 
 
 ## Getting Started
