@@ -28,4 +28,4 @@ with gr.Blocks() as demo:
           gr.Label("Confusion Maxtrix with Historical Prediction Performance")
           input_img = gr.Image("confusion_matrix_wine.png", elem_id="confusion-matrix")        
 
-demo.launch()
+demo.launch(debug=True)
