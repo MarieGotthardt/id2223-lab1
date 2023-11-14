@@ -1,4 +1,4 @@
-name: iris-feature-pipeline-inference
+name: wine-feature-pipeline-inference
 
 on:
   workflow_dispatch:
