@@ -10,8 +10,7 @@ on a daily basis.
 Interactive apps that utilize the ML system are hosted on Hugging Face and use Gradio for the user interface.
 
 ### Data Preparation and EDA
-In a first step, we cleaned and prepared the data. First, we
-filled missing data. In case of numerical features, we therefore randomly generated data points
+In a first step, we cleaned and prepared the data. First, we replaced missing data. In case of numerical features, we therefore randomly generated data points
 within the range of the values of the respective features. For missing values of categorical data, 
 on the other hand, we replaced missing data by a category corresponding to "Unknown". 
 Afterwards, we checked the dataset for duplicated records and removed those. Then we transformed the 
@@ -34,10 +33,19 @@ highly (>0.7) correlated with at least one other feature.
 One problem we noticed during the EDA, was that there were only very few samples of certain target classes, i.e., the 
 target classes were highly imbalanced. As we expected that this might have a negative effect on the classification
 performance, we decided to perform data augmentation using the Synthetic Minority Over-sampling Technique (SMOTE).
+This approach synthetically generates samples of the minor categories to achieve a balanced dataset. However, to avoid
+having a uniform distribution after using SMOTE, we manually dropped some of the generated samples so that the resulting
+distribution of the target variable would resemble the original distribution more closely. 
 
 
 ### Model Selection and Fine-Tuning
-For model selection, we performed local experiments with XGBoost and Random Forest Classifier.  
+While this prediction task could have been modelled either as a regression or a classification problem, we decided to
+treat it as a classification problem. 
+For model selection, we performed local experiments with XGBoost and Random Forest Classifier (RFC) and performed a grid search
+for hyperparameter tuning. For XGBoost, we performed the grid search over the hyperparameters *maximum depth*, *learning rate*
+and *subsample* while for the RFC we performed the grid search over the hyperparameters *maximum features* and *maximum depth*.
+Eventually, we decided to use the XGBoost model for the hopsworks model as it showed a slightly better performace after hyperparatmeter 
+than the RFC. 
 
 
 ### Data Sampling
@@ -45,6 +53,13 @@ For sampling a new synthetic wine, red or white is chosen randomly with equal pr
 A Gaussian Mixture Model (GMM) is then fit to the data for the chosen wine type, and a single sample is then taken from 
 the GMM and put in a dataframe. The quality label is included in the GMM but is then rounded and cast to an int to fit 
 the quality label classes.
+
+
+### Classification Results
+
+
+### Discussion of our Approach
+
 
 
 ## Getting Started
