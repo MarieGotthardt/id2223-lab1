@@ -39,7 +39,7 @@ def generate_wine(wine_type, df):
 def g():
     project = hopsworks.login()
     fs = project.get_feature_store()
-    wine_fg = fs.get_feature_group(name="wine_enriched",version=1)
+    wine_fg = fs.get_feature_group(name="wine_enriched_balanced",version=1)
     query = wine_fg.select_all()
     df = query.read()
 
