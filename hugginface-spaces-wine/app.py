@@ -43,19 +43,26 @@ demo = gr.Interface(
                 "to predict of which quality the wine is.",
     allow_flagging="never",
     inputs=[
-        gr.inputs.Number(default=7.2, label="fixed acidity (3.8 ... 15.9)"),
+        gr.inputs.Number(default=7.2, label="fixed acidity (3.80 ... 15.99)"),
         gr.inputs.Number(default=0.34, label="volatile acidity (0.00 ... 1.58)"),
         gr.inputs.Number(default=0.32, label="citric acid (0.00 ... 1.66)"),
         gr.inputs.Number(default=0, label="type (0...red, 1...white)"),
-        gr.inputs.Number(default=10.5, label="alcohol (8.0 ... 14.9"),
+        gr.inputs.Number(default=10.5, label="alcohol (8.00 ... 14.90"),
         gr.inputs.Number(default=0.99, label="density (0.99 ... 1.04)"),
         gr.inputs.Number(default=0.06, label="chlorides (0.00 ...0.61)"),
         gr.inputs.Number(default=5.07, label="residual sugar (0.60 ...65.80)"),
-        gr.inputs.Number(default=30.06, label="free sulfur dioxide (1.0 ...289.0)"),
+        gr.inputs.Number(default=30.06, label="free sulfur dioxide (1.00 ...281.22)"),
         gr.inputs.Number(default=3.22, label="pH (2.72 ...4.01)"),
         gr.inputs.Number(default=0.53, label="sulphates (0.00 ...2.00)"),
     ],
     outputs=gr.Image(type="pil"))
+
+
+
+
+
+
+
 
 demo.launch(debug=True)
 

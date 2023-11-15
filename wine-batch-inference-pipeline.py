@@ -18,7 +18,7 @@ def g():
     fs = project.get_feature_store()
 
     mr = project.get_model_registry()
-    model = mr.get_model("wine_model", version=6)
+    model = mr.get_model("wine_model", version=7)
     model_dir = model.download()
     model = joblib.load(model_dir + "/wine_model.pkl")
 
@@ -30,7 +30,7 @@ def g():
     # print(y_pred)
 
     # Get the latest wine quality
-    offset = 1
+    offset = 2
     quality = y_pred[y_pred.size-offset]
     print("Predicted quality: " + str(quality))
     quality_url = "https://raw.githubusercontent.com/SamuelHarner/review-images/main/images/" + str(int(quality+1)) + "_stars.png"
