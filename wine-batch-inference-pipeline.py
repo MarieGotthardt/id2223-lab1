@@ -30,7 +30,7 @@ def g():
     # print(y_pred)
 
     # Get the latest wine quality
-    offset = 8
+    offset = 1
     quality = y_pred[y_pred.size-offset]
     print("Predicted quality: " + str(quality))
     quality_url = "https://raw.githubusercontent.com/SamuelHarner/review-images/main/images/" + str(int(quality+1)) + "_stars.png"

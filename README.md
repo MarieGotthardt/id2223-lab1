@@ -4,7 +4,7 @@ First Lab Assignment within the course ID2223 *Scalable Machine Learning and Dee
 
 ## Description
 
-In this Lab, we created a severless ML system for predicting the quality of wines and for creating new wine samples
+In this Lab, we created a severless ML system for predicting the quality of wines and creating new wine samples
 on a daily basis.
 
 Interactive apps that utilize the ML system are hosted on Hugging Face and use Gradio for the user interface.
@@ -27,7 +27,7 @@ Furthermore, we re-categorized the target variable into categories from 0 to 4 (
 
 
 After having the data prepared this way, we investigated the predictive power of the different features. 
-Therefore, we performed the correlations within the features and dropped features that were
+Therefore, we examined the correlations between the features and dropped features that were
 highly (>0.7) correlated with at least one other feature.
 
 One problem we noticed during the EDA, was that there were only very few samples of certain target classes, i.e., the 
@@ -44,8 +44,8 @@ treat it as a classification problem.
 For model selection, we performed local experiments with XGBoost and Random Forest Classifier (RFC) and performed a grid search
 for hyperparameter tuning. For XGBoost, we performed the grid search over the hyperparameters *maximum depth*, *learning rate*
 and *subsample* while for the RFC we performed the grid search over the hyperparameters *maximum features* and *maximum depth*.
-Eventually, we decided to use the XGBoost model for the hopsworks model as it showed a slightly better performace after hyperparatmeter 
-than the RFC. 
+Eventually, we decided to use the XGBoost model for the hopsworks model as it showed a slightly better performance in our local
+experiments after hyperparameter tuning than the RFC. 
 
 
 ### Data Sampling
@@ -56,6 +56,7 @@ the quality label classes.
 
 
 ### Classification Results
+//do we take the classification results from hopsworks here?
 
 
 ### Discussion of our Approach
@@ -64,35 +65,10 @@ the quality label classes.
 
 ## Getting Started
 
-### Dependencies
-
-* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-
-See the file `requirements.txt`.
-
-
-### Installing
-
-* How/where to download your program
-* Any modifications needed to be made to files/folders
+### Dependencies and Installing
 
 ```
 pip install -r requirements.txt
-```
-
-### Executing program
-
-* How to run the program
-* Step-by-step bullets
-```
-code blocks for commands
-```
-
-## Help
-
-Any advise for common problems or issues.
-```
-command to run if program contains helper info
 ```
 
 ## Authors
@@ -105,7 +81,7 @@ Samuel Härner
 ## References
 
 
-* [Wine Quality Dataset](https://www.kaggle.com/datasets/yasserh/wine-quality-dataset)
+* [Wine Quality Dataset](https://www.kaggle.com/datasets/rajyellow46/wine-quality)
 * [Paper on SMOTE](https://doi.org/10.48550/arXiv.1106.1813): 
 Chawla, N. V., Bowyer, K. W., Hall, L. O., & Kegelmeyer, W. P. (2002). SMOTE: synthetic minority over-sampling technique. 
 *Journal of artificial intelligence research*, 16, 321-357.
