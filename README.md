@@ -5,12 +5,22 @@ First Lab Assignment within the course ID2223 *Scalable Machine Learning and Dee
 ## Description of our Pipelines
 
 In this Lab, we created a severless ML system for predicting the quality of wines and creating new wine samples
-on a daily basis.
+on a daily basis. 
+An overview of the system can be seen in the image below:
+![System Overview](./images/system_overview.png)
+
+We use Hopsworks to store two feature groups: *wine-enriched-balanced* which holds the features of the wine quality 
+dataset and *quality predictions*, which stores the predicted wine qualities and is used for outcome monitoring. 
+Furthermore, a model is registered on Hopsworks which we use for the classification task. 
+
+To generate and evaluate new wine samples on a daily basis, we use GitHub Actions. 
 
 Interactive apps that utilize the ML system are hosted on Hugging Face and use Gradio for the user interface.
 
-[Hugging Face Wine Monitoring Space](https://huggingface.co/spaces/MarieGotthardt/wine_monitoring)
+[Hugging Face Wine Monitoring Space](https://huggingface.co/spaces/MarieGotthardt/wine_monitoring) \
 [Hugging Face Wine Space](https://huggingface.co/spaces/MarieGotthardt/wine)
+
+
 //add image and hopsworks and github actions
 // maybe mention here that the local experiments folder is just for experimenting
 
@@ -65,15 +75,22 @@ the quality label classes.
 
 
 ### Discussion of our Approach
-*imbalanced target problem + smote (distribution modification)
-* binning of the target (empirical approach) --> advantage: makes it scalable
+Using Hopsworks, GitHub Actions and HuggingFace, we created a severless ML system with which we can
+predict the quality of wines and create new wine samples on a daily basis and provide interactive 
+UIs to display the respective results. 
+While preparing the data for this task, we had to face some challenges. First, although the quality ratings 
+ranged from zero to ten, the dataset contained only samples with quality ratings from three to nine. Furthermore,
+the dataset was highly imbalanced with respect to the different quality ratings. Thus, we decided to 
+bin the quality ratings into five categories and relabelled the target variables accordingly from 
+zero to four. With this approach, we are able to categorize wine qualities that were not contained
+in the original dataset but are hypothetically possible. Furthermore, we avoided to have categories 
+with very few (n<10) samples.
+However, even after binning, the dataset was still highly imbalanced with respect to the target variable 
+To counter this problem, we used SMOTE to synthetically create additional samples of the underrepresented 
+target classes. However, using SMOTE, resulted in a uniformly distributed dataset w.r.t the target classes. 
+Thus, we manually removed some samples to ensure that the resulting distribution still somehow resembles 
+the original distribution. 
 
-
-
-
-
-
-## Getting Started
 
 ### Dependencies and Installing
 
