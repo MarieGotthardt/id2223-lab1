@@ -32,7 +32,7 @@ def wine(fixed_acidity, volatile_acidity, citric_acid, residual_sugar, chlorides
     #     print("Res: {0}").format(res)
     print(res)
 
-    star_url = "https://raw.githubusercontent.com/SamuelHarner/review-images/main/images/" + str(res[0]) + "_stars.png"
+    star_url = "https://raw.githubusercontent.com/SamuelHarner/review-images/main/images/" + str(res[0]+1) + "_stars.png"
     img = Image.open(requests.get(star_url, stream=True).raw)
     return img
 

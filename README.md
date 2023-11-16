@@ -2,12 +2,17 @@
 
 First Lab Assignment within the course ID2223 *Scalable Machine Learning and Deep Learning*
 
-## Description
+## Description of our Pipelines
 
 In this Lab, we created a severless ML system for predicting the quality of wines and creating new wine samples
 on a daily basis.
 
 Interactive apps that utilize the ML system are hosted on Hugging Face and use Gradio for the user interface.
+
+[Hugging Face Wine Monitoring Space](https://huggingface.co/spaces/MarieGotthardt/wine_monitoring)
+[Hugging Face Wine Space](https://huggingface.co/spaces/MarieGotthardt/wine)
+//add image and hopsworks and github actions
+// maybe mention here that the local experiments folder is just for experimenting
 
 ### Data Preparation and EDA
 In a first step, we cleaned and prepared the data. First, we replaced missing data. In case of numerical features, we therefore randomly generated data points
@@ -60,6 +65,11 @@ the quality label classes.
 
 
 ### Discussion of our Approach
+*imbalanced target problem + smote (distribution modification)
+* binning of the target (empirical approach) --> advantage: makes it scalable
+
+
+
 
 
 
