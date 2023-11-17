@@ -134,10 +134,7 @@ However, even after binning, some of the target categories still contained quite
 To counter this problem, we used SMOTE to synthetically create additional samples of the underrepresented 
 target classes. However, using SMOTE, resulted in a uniformly distributed dataset w.r.t the target classes which led
 to a deteriorated classification performance. Thus, we manually removed some samples to ensure that the resulting distribution 
-still somehow resembles the original distribution. 
-After preparing appropriately, selecting a suitable model (XGBoost) and performing some hyperparameter tuning,
-we are now able to reach a good classification performance (accuracy = 0.83 on Hopsworks). 
-
+still somehow resembles the original distribution.
 
 ### Dependencies and Installing
 
