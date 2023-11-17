@@ -1,12 +1,13 @@
 # Wine Quality Prediction
 
-First Lab Assignment within the course ID2223 *Scalable Machine Learning and Deep Learning*
+First Lab Assignment within the course ID2223 *Scalable Machine Learning and Deep Learning*.
 
 ## Description of our Pipelines
 
 In this Lab, we created a severless ML system for predicting the quality of wines and creating new wine samples
 on a daily basis. 
 An overview of the system can be seen in the image below:
+
 ![System Overview](./images/system_overview.png)
 
 We use Hopsworks to store two feature groups: *wine-enriched-balanced* which holds the features of the wine quality 
