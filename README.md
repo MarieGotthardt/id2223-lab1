@@ -21,11 +21,9 @@ Interactive apps that utilize the ML system are hosted on Hugging Face and use G
 [Hugging Face Wine Space](https://huggingface.co/spaces/MarieGotthardt/wine)
 
 
-//add image and hopsworks and github actions
-// maybe mention here that the local experiments folder is just for experimenting
-
 ### Data Preparation and EDA
-In a first step, we cleaned and prepared the data. First, we replaced missing data. In case of numerical features, we therefore randomly generated data points
+In a first step, we cleaned and prepared the data. First, we replaced missing data. 
+In case of numerical features, we therefore randomly generated data points
 within the range of the values of the respective features. For missing values of categorical data, 
 on the other hand, we replaced missing data by a category corresponding to "Unknown". 
 Afterwards, we checked the dataset for duplicated records and removed those. Then we transformed the 
@@ -56,11 +54,12 @@ distribution of the target variable would resemble the original distribution mor
 ### Model Selection and Fine-Tuning
 While this prediction task could have been modelled either as a regression or a classification problem, we decided to
 treat it as a classification problem. 
-For model selection, we performed local experiments with XGBoost and Random Forest Classifier (RFC) and performed a grid search
+For model selection, we conducted local experiments with XGBoost and Random Forest Classifier (RFC) and performed a grid search
 for hyperparameter tuning. For XGBoost, we performed the grid search over the hyperparameters *maximum depth*, *learning rate*
 and *subsample* while for the RFC we performed the grid search over the hyperparameters *maximum features* and *maximum depth*.
-Eventually, we decided to use the XGBoost model for the hopsworks model as it showed a slightly better performance in our local
-experiments after hyperparameter tuning than the RFC. 
+To compare model performance, we used the metrics *accuracy* and *ROC AUC*.
+Eventually, we decided to use the XGBoost model for the hopsworks model as it showed a slightly better performance in both
+metrics after hyperparameter tuning than the RFC. 
 
 
 ### Data Sampling
