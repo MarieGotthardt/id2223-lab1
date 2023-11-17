@@ -70,7 +70,24 @@ the quality label classes.
 
 
 ### Classification Results
-//do we take the classification results from hopsworks here?
+To get a realistic assessment of the classification performance of our XGBoost classifier on the original wine data, we test it on
+a 10% holdout set from the original data. The other 90% of the data is expanded with SMOTE and then adjusted in terms of class distributions.
+This is demonstrated in the following Jupyter Notebook: [SMOTEbook](https://github.com/MarieGotthardt/id2223-lab1/blob/main/local_experiments/smotebook.ipynb)
+
+An example run of this notebook gives the following results:
+
+```
+Accuracy before SMOTE:
+XGBoost accuracy: 0.6941838649155723
+
+Accuracy when trained on SMOTE data:
+XGBoost accuracy: 0.6697936210131332
+
+Accuracy when trained on adjusted SMOTE data:
+XGBoost accuracy: 0.6848030018761726
+```
+
+As can be seen, the highest accuracy is achieved when just training on the original data. When trained on SMOTE data, where class labels are completely even in terms of class distribution, the accuracy is lower likely due to the model now over-predicting infrequent classes in the original data. After adjusting the SMOTE data to move the class distribution slightly closer to the original distribution; the accuracy goes up and is now closer to the accuracy possible when training on just original data.
 
 
 ### Discussion of our Approach
