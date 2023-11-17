@@ -38,7 +38,7 @@ Interactive apps that utilize the ML system are hosted on Hugging Face and use G
 [Hugging Face Wine Space](https://huggingface.co/spaces/MarieGotthardt/wine)
 
 An overview of the whole system can be seen in the image below:
-![System Overview](./images/system_overview.png)
+![System Overview](./images/system_overview_with_details.png)
 
 
 ### Data Preparation and EDA
@@ -118,21 +118,25 @@ the accuracy goes up and is now closer to the accuracy possible when training on
 
 
 ### Discussion of our Approach
-Using Hopsworks, GitHub Actions and HuggingFace, we created a severless ML system with which we can
-predict the quality of wines and create new wine samples on a daily basis and provide interactive 
-UIs to display the respective results. 
-While preparing the data for this task, we had to face some challenges. First, although the quality ratings 
-ranged from zero to ten, the dataset contained only samples with quality ratings from three to nine. Furthermore,
+In this Lab, we created a severless ML system using Hopsworks, Github Actions and HuggingFace.
+This system consists of several pipelines to transform the raw data,
+create a model, make predictions and sample and predict new wines on a daily basis. Furthermore, we created
+interactive UI to display our results.
+Especially during the data preparation, we had to face some challenges. 
+First, although the quality ratings (the target variable) ranged from zero to ten according to the description of the 
+dataset, the dataset contained only samples with quality ratings from three to nine. Furthermore,
 the dataset was highly imbalanced with respect to the different quality ratings. Thus, we decided to 
 bin the quality ratings into five categories and relabelled the target variables accordingly from 
 zero to four. With this approach, we are able to categorize wine qualities that were not contained
 in the original dataset but are hypothetically possible. Furthermore, we avoided to have categories 
 with very few (n<10) samples.
-However, even after binning, the dataset was still highly imbalanced with respect to the target variable 
+However, even after binning, some of the target categories still contained quite few samples.
 To counter this problem, we used SMOTE to synthetically create additional samples of the underrepresented 
-target classes. However, using SMOTE, resulted in a uniformly distributed dataset w.r.t the target classes. 
-Thus, we manually removed some samples to ensure that the resulting distribution still somehow resembles 
-the original distribution. 
+target classes. However, using SMOTE, resulted in a uniformly distributed dataset w.r.t the target classes which led
+to a deteriorated classification performance. Thus, we manually removed some samples to ensure that the resulting distribution 
+still somehow resembles the original distribution. 
+After preparing appropriately, selecting a suitable model (XGBoost) and performing some hyperparameter tuning,
+we are now able to reach a good classification performance (accuracy = 0.83 on Hopsworks). 
 
 
 ### Dependencies and Installing
