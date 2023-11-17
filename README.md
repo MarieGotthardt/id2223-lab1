@@ -1,11 +1,16 @@
 # Wine Quality Prediction
 
-First Lab Assignment within the course ID2223 *Scalable Machine Learning and Deep Learning*
+First Lab Assignment within the course ID2223 *Scalable Machine Learning and Deep Learning*.
 
 ## Description of our Pipelines
 
 In this Lab, we created a severless ML system for predicting the quality of wines and creating new wine samples
 on a daily basis. 
+
+We use Hopsworks to store two feature groups: *wine-enriched-balanced* which holds the features of the wine quality 
+dataset and *quality predictions*, which stores the predicted wine qualities and is used for outcome monitoring. 
+Furthermore, a model is registered on Hopsworks which we use for the classification task. 
+
 This system consists of several pipelines. In the first pipeline 
 ([EDA and Backfill](https://github.com/MarieGotthardt/id2223-lab1/blob/main/wine-eda-and-backfill-feature-group.ipynb)), 
 we transform the raw data and output reusable features and labels which are stored in a feature group 
@@ -32,9 +37,8 @@ Interactive apps that utilize the ML system are hosted on Hugging Face and use G
 [Hugging Face Wine Monitoring Space](https://huggingface.co/spaces/MarieGotthardt/wine_monitoring) \
 [Hugging Face Wine Space](https://huggingface.co/spaces/MarieGotthardt/wine)
 
-
 An overview of the whole system can be seen in the image below:
-![System Overview](./images/system_overview_with_details.png)
+![System Overview](./images/system_overview.png)
 
 
 ### Data Preparation and EDA
