@@ -6,19 +6,35 @@ First Lab Assignment within the course ID2223 *Scalable Machine Learning and Dee
 
 In this Lab, we created a severless ML system for predicting the quality of wines and creating new wine samples
 on a daily basis. 
-An overview of the system can be seen in the image below:
-![System Overview](./images/system_overview.png)
+This system consists of several pipelines. In the first pipeline 
+([EDA and Backfill](https://github.com/MarieGotthardt/id2223-lab1/blob/main/wine-eda-and-backfill-feature-group.ipynb)), 
+we transform the raw data and output reusable features and labels which are stored in a feature group 
+(*wine_enriched_balanced*), using the feature store *Hopsworks*.
 
-We use Hopsworks to store two feature groups: *wine-enriched-balanced* which holds the features of the wine quality 
-dataset and *quality predictions*, which stores the predicted wine qualities and is used for outcome monitoring. 
-Furthermore, a model is registered on Hopsworks which we use for the classification task. 
+In the [Training Pipeline](https://github.com/MarieGotthardt/id2223-lab1/blob/main/wine-training-pipeline.ipynb), 
+a model is created and trained on a set of training features and labels. To register the trained
+model, Hopsworks is used again. 
 
-To generate and evaluate new wine samples on a daily basis, we use GitHub Actions. 
+To perform predictions, we use the 
+[Inference Pipeline](https://github.com/MarieGotthardt/id2223-lab1/blob/main/wine-batch-inference-pipeline.py) 
+which utilizes the feature group and the registered model on Hopsworks to predict the quality of a wine for a given 
+set of features. The quality predictions are stored in another feature group (*quality_predictions*) to enable
+the monitoring of outcomes. 
+
+To sample new wines on a daily basis, we use the 
+[Daily Feature Pipeline](https://github.com/MarieGotthardt/id2223-lab1/blob/main/wine-feature-pipeline-daily.py) 
+where the sampled wines are added to the feature group on Hopsworks. To perform quality predictions of the sampled wines, 
+again the inference pipeline is used. For automatic daily scheduled triggering of the sampling and the prediction of new 
+wines, workflows on 
+[GitHub Actions](https://github.com/MarieGotthardt/id2223-lab1/actions) are used. 
 
 Interactive apps that utilize the ML system are hosted on Hugging Face and use Gradio for the user interface.
-
 [Hugging Face Wine Monitoring Space](https://huggingface.co/spaces/MarieGotthardt/wine_monitoring) \
 [Hugging Face Wine Space](https://huggingface.co/spaces/MarieGotthardt/wine)
+
+
+An overview of the whole system can be seen in the image below:
+![System Overview](./images/system_overview_with_details.png)
 
 
 ### Data Preparation and EDA
@@ -55,7 +71,9 @@ distribution of the target variable would resemble the original distribution mor
 While this prediction task could have been modelled either as a regression or a classification problem, we decided to
 treat it as a classification problem. 
 For model selection, we conducted local experiments with XGBoost and Random Forest Classifier (RFC) and performed a grid search
-for hyperparameter tuning. For XGBoost, we performed the grid search over the hyperparameters *maximum depth*, *learning rate*
+for hyperparameter tuning. These local experiments can be found in the following Jupyter Notebook: 
+[Classify Wine](https://github.com/MarieGotthardt/id2223-lab1/blob/main/local_experiments/classify_wine.ipynb)
+For XGBoost, we performed the grid search over the hyperparameters *maximum depth*, *learning rate*
 and *subsample* while for the RFC we performed the grid search over the hyperparameters *maximum features* and *maximum depth*.
 To compare model performance, we used the metrics *accuracy* and *ROC AUC*.
 Eventually, we decided to use the XGBoost model for the hopsworks model as it showed a slightly better performance in both
@@ -72,7 +90,8 @@ the quality label classes.
 ### Classification Results
 To get a realistic assessment of the classification performance of our XGBoost classifier on the original wine data, we test it on
 a 10% holdout set from the original data. The other 90% of the data is expanded with SMOTE and then adjusted in terms of class distributions.
-This is demonstrated in the following Jupyter Notebook: [SMOTEbook](https://github.com/MarieGotthardt/id2223-lab1/blob/main/local_experiments/smotebook.ipynb)
+This is demonstrated in the following Jupyter Notebook: 
+[SMOTEbook](https://github.com/MarieGotthardt/id2223-lab1/blob/main/local_experiments/smotebook.ipynb)
 
 An example run of this notebook gives the following results:
 
@@ -87,7 +106,11 @@ Accuracy when trained on adjusted SMOTE data:
 XGBoost accuracy: 0.6848030018761726
 ```
 
-As can be seen, the highest accuracy is achieved when just training on the original data. When trained on SMOTE data, where class labels are completely even in terms of class distribution, the accuracy is lower likely due to the model now over-predicting infrequent classes in the original data. After adjusting the SMOTE data to move the class distribution slightly closer to the original distribution; the accuracy goes up and is now closer to the accuracy possible when training on just original data.
+As can be seen, the highest accuracy is achieved when just training on the original data. 
+When trained on SMOTE data, where class labels are completely even in terms of class distribution, 
+the accuracy is lower likely due to the model now over-predicting infrequent classes in the original data. 
+After adjusting the SMOTE data to move the class distribution slightly closer to the original distribution; 
+the accuracy goes up and is now closer to the accuracy possible when training on just original data.
 
 
 ### Discussion of our Approach
