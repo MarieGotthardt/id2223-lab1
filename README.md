@@ -29,11 +29,11 @@ again the inference pipeline is used. For automatic daily scheduled triggering o
 wines, workflows on 
 [GitHub Actions](https://github.com/MarieGotthardt/id2223-lab1/actions) are used. 
 
-To display prediction results and the recent sampling history, interactive apps were created that utilize the ML system. These apps are hosted on Hugging Face and use Gradio for the user interface.
-\(see [Hugging Face Wine Monitoring Space](https://huggingface.co/spaces/MarieGotthardt/wine_monitoring) \
+To display prediction results and the recent sampling history, interactive apps were created that utilize the ML system. These apps are hosted on Hugging Face and use Gradio for the user interface.\
+[Hugging Face Wine Monitoring Space](https://huggingface.co/spaces/MarieGotthardt/wine_monitoring) \
 [Hugging Face Wine Space](https://huggingface.co/spaces/MarieGotthardt/wine))
 
-An overview of the whole system can be seen in the image below:
+An overview of the whole system is given in the image below:
 ![System Overview](./images/system_overview_with_details.png)
 
 
