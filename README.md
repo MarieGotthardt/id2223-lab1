@@ -41,8 +41,8 @@ An overview of the whole system is given in the image below:
 In a first step, we cleaned and prepared the data. First, we replaced missing data. 
 In case of numerical features, we therefore randomly generated data points
 within the range of the values of the respective features. For missing values of categorical data, 
-on the other hand, we replaced missing data by a category corresponding to "Unknown". 
-Afterwards, we checked the dataset for duplicated records and removed those. Then we transformed the 
+on the other hand, we replaced missing data with a category corresponding to "Unknown". 
+Afterwards, we checked the dataset for duplicated data records and removed those (1168 records in total). Then we transformed the 
 categorical feature *type* into a numerical feature by using one-hot-encoding.
 
 Furthermore, we re-categorized the target variable into categories from 0 to 4 (with a conceptual rating system of 1 to 
@@ -114,21 +114,21 @@ the accuracy goes up and is now closer to the accuracy possible when training on
 
 
 ### Discussion of our Approach
-In this Lab, we created a severless ML system using Hopsworks, Github Actions and HuggingFace.
+In this Lab, we created a severless ML system using Hopsworks, GitHub Actions, and HuggingFace.
 This system consists of several pipelines to transform the raw data,
-create a model, make predictions and sample and predict new wines on a daily basis. Furthermore, we created
-interactive UI to display our results.
+create a model, make predictions, and sample and predict new wines on a daily basis. Furthermore, we created
+interactive UIs to display our results.
 Especially during the data preparation, we had to face some challenges. 
 First, although the quality ratings (the target variable) ranged from zero to ten according to the description of the 
 dataset, the dataset contained only samples with quality ratings from three to nine. Furthermore,
 the dataset was highly imbalanced with respect to the different quality ratings. Thus, we decided to 
 bin the quality ratings into five categories and relabelled the target variables accordingly from 
 zero to four. With this approach, we are able to categorize wine qualities that were not contained
-in the original dataset but are hypothetically possible. Furthermore, we avoided to have categories 
+in the original dataset but are hypothetically possible. Furthermore, we avoided having categories 
 with very few (n<10) samples.
 However, even after binning, some of the target categories still contained quite few samples.
 To counter this problem, we used SMOTE to synthetically create additional samples of the underrepresented 
-target classes. However, using SMOTE, resulted in a uniformly distributed dataset w.r.t the target classes which led
+target classes. However, using SMOTE, resulted in a uniformly distributed dataset w.r.t. the target classes, which led
 to a deteriorated classification performance. Thus, we manually removed some samples to ensure that the resulting distribution 
 still somehow resembles the original distribution.
 
