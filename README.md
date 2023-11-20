@@ -7,10 +7,6 @@ First Lab Assignment within the course ID2223 *Scalable Machine Learning and Dee
 In this Lab, we created a severless ML system for predicting the quality of wines and creating new wine samples
 on a daily basis. 
 
-We use Hopsworks to store two feature groups: *wine-enriched-balanced* which holds the features of the wine quality 
-dataset and *quality predictions*, which stores the predicted wine qualities and is used for outcome monitoring. 
-Furthermore, a model is registered on Hopsworks which we use for the classification task. 
-
 This system consists of several pipelines. In the first pipeline 
 ([EDA and Backfill](https://github.com/MarieGotthardt/id2223-lab1/blob/main/wine-eda-and-backfill-feature-group.ipynb)), 
 we transform the raw data and output reusable features and labels which are stored in a feature group 
