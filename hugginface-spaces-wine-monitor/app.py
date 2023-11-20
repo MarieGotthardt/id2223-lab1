@@ -15,10 +15,10 @@ dataset_api.download("Resources/images/confusion_matrix_wine.png")
 with gr.Blocks() as demo:
     with gr.Row():
       with gr.Column():
-          gr.Label("Today's Predicted Image")
+          gr.Label("Today's Predicted Wine Quality")
           input_img = gr.Image("latest_wine.png", elem_id="predicted-img")
       with gr.Column():          
-          gr.Label("Today's Actual Image")
+          gr.Label("Today's Actual Wine Quality")
           input_img = gr.Image("actual_wine.png", elem_id="actual-img")        
     with gr.Row():
       with gr.Column():
